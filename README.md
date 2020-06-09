@@ -15,13 +15,13 @@ To be used in a Pipeline, to automate the creation of a Data Bricks Pool
 
 ### Steps
 
- 1. Set Variables
-
- 1. Create the Service Principle.   This is the identity the function will use to create the DataBricks Pool
+ 1. Create the __Service Principle__.   This is the identity the function will use to create the DataBricks Pool
  
-    $ az ad sp create-for-rbac --name ${FNNAME}
+    ```
+    az ad sp create-for-rbac --name <fn_name>
+    ```
 
-    * NOTE: record the output, you will need the appId, password, and tenant later.
+    *NOTE: record the output, you will need the __appId__, __password__, and __tenant__ later.
     
         ```
         {
@@ -33,7 +33,7 @@ To be used in a Pipeline, to automate the creation of a Data Bricks Pool
         }
         ```
 
-2.  Assign Permissions to the Service Principle to operate on the KeyVault and DataBricks
+2.  Assign Permissions to the __Service Principle__ to operate on the KeyVault and DataBricks
 
     1. Add Access Policy for 'Secret Management' 
     2. DataBricks ??
@@ -48,7 +48,7 @@ To be used in a Pipeline, to automate the creation of a Data Bricks Pool
     az functionapp create --functions-version 3 --os-type Windows --runtime node -g <resource_group> -n <fn_name>   --consumption-plan-location westeurope -s <storage_account>
 
 
-    ## Set Variables
+    ## Set App Settings
     az functionapp config appsettings set -g <resource_group> -n <fn_name> --settings "VAULT_NAME=<keyvault_name>" "VAULT_SECRET_NAME=<keyvault_secret_name>" "DB_POOL_NAME=<dbricks_pool_name>" "DB_ORG_ID=<dbricks_org_id>"
 
     ## Enable Auth token binding

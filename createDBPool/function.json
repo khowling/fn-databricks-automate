@@ -1,0 +1,33 @@
+{
+  "bindings": [
+    {
+      "authLevel": "function",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "res"
+    },
+    {
+      "type": "token",
+      "direction": "in",
+      "name": "kvToken",
+      "resource": "https://vault.azure.net",
+      "identity": "clientCredentials"
+    },
+    {
+      "type": "token",
+      "direction": "in",
+      "name": "dbToken",
+      "resource": "2ff814a6-3304-4ab8-85cb-cd0e6f879c1d",
+      "identity": "clientCredentials"
+    }
+  ]
+}

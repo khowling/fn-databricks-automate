@@ -15,7 +15,7 @@ To be used in a Pipeline, to automate the creation of a Databricks Pool
 
 ### Steps
 
- 1. Create the __Service Principal__.   This is the identity the function will use to create the Databricks Pool
+ 1. Create the __Service Principal__.   This is the identity the function will use to create the Databricks PAT and Pool
  
     ```
     az ad sp create-for-rbac --name <fn_name>

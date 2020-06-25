@@ -55,7 +55,7 @@ To be used in a Pipeline, to automate the creation of a Databricks Pool
     az webapp auth update --resource-group <resource_group> --name <fn_name> --enabled true --action AllowAnonymous --aad-client-id '<SP_appId>' --aad-token-issuer-url 'https://sts.windows.net/<SP_tenant>/' --aad-client-secret '<SP_password>
     ```
 
-3. Clone this repo, open in Visual Studio and deploy the functionapp code
+3. Clone this repo to your local environment and deploy the functionapp code
 
     ```
     func azure functionapp publish <fn_name>

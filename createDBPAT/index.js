@@ -2,7 +2,11 @@ const https = require('https')
 async function fetch(bearertoken, method, url, headers = {}, body) {
 
     return new Promise(function(resolve, reject) {
-        const req = https.request(url, {method, "headers": {...headers, 'Authorization': 'Bearer ' + bearertoken, 'Content-type': 'application/json'}}, (res) => {
+        let req_headers = {...headers, 'Authorization': 'Bearer ' + bearertoken, 'Content-type': 'application/json'}
+        if (method === `POST`) {
+            req_headers["Content-length"] = Buffer.byteLength(body)
+        }
+        const req = https.request(url, {method, headers: req_headers}, (res) => {
             const   { statusCode, statusMessage } = res,
                     contentType = res.headers['content-type']
                     
@@ -37,28 +41,24 @@ module.exports = async function (context, req) {
 
     const 
         kvName = process.env.VAULT_NAME,
-        poolName = req.query.poolsecretname,
-        secretName = req.query.poolsecretname,
+        patComment = req.query.patsecretname,
+        secretName = req.query.patsecretname,
         dbOrgId = process.env.DB_ORG_ID,
         // using the 'token' binding, this requries the binding and the functionapp authorisation to be configured, and it doesnt use managed identity :(
         {kvToken, dbToken} = context.bindings
 
     try {
 
-        if (!kvName || !poolName || !secretName || !dbOrgId) {
+        if (!kvName || !patComment || !secretName || !dbOrgId) {
             throw "Function settings not configured, please contact your administrator"
         }
 
-        const createPool = await fetch (dbToken, 'POST', `https://adb-${dbOrgId}.azuredatabricks.net/api/2.0/instance-pools/create`, {'X-Databricks-Org-Id': dbOrgId.split(".")[0]}, 
-            JSON.stringify({
-                "instance_pool_name": poolName,
-                "node_type_id": "Standard_D3_v2",
-                "min_idle_instances": 0, "max_capacity":2
-            })
+        const createPAT = await fetch (dbToken, 'POST', `https://adb-${dbOrgId}.azuredatabricks.net/api/2.0/token/create`, {'X-Databricks-Org-Id': dbOrgId.split(".")[0]}, 
+            JSON.stringify({"comment":"ADF Blog 56"})
         )
 
         const insertSecret = await fetch (kvToken, 'PUT',  `https://${kvName}.vault.azure.net/secrets/${secretName}?api-version=7.0`, {},
-            JSON.stringify({"value": createPool.instance_pool_id})
+            JSON.stringify({"value": createPAT.token_value})
         )
 
         context.res = {

@@ -36,7 +36,7 @@ To be used in a Pipeline, to automate the creation of a Databricks Pool
 2.  Assign Permissions to the __Service Principal__ to operate on the KeyVault and Databricks
 
     1. Add Access Policy for 'Secret Management' 
-    2. Add the service principal to the admin group of the workspace. To do this use the [admin login](https://docs.microsoft.com/en-us/azure/databricks/dev-tools/api/latest/aad/service-prin-aad-token#admin-user-login) as shown in this [sample code](https://github.com/hurtn/databricks/blob/master/Add Service Principal to Workspace (Admin Login).ipynb). The service principal must also be a granted the contributor role in the workspace.
+    2. Add the service principal to the admin group of the workspace. To do this use the [admin login](https://docs.microsoft.com/en-us/azure/databricks/dev-tools/api/latest/aad/service-prin-aad-token#admin-user-login) as shown in this [sample code](https://github.com/hurtn/databricks/blob/master/Add Service Principal to Workspace Admin Login.ipynb). The service principal must also be a granted the contributor role in the workspace.
 
 2.  Create the Function App
 

@@ -40,7 +40,7 @@ To be used in a Pipeline, to automate the creation of a Databricks Pool
 
 2.  Create the Function App
 
-Substitute the <tokens> with the appropriate details. The <dbricks_org_id> parameter should be the <workspace-id>.<random-number> which can be obtained from the [workspace url](https://docs.microsoft.com/en-us/azure/databricks/workspace/workspace-details#--workspace-instance-names-urls-and-ids). 
+Substitute the `<tokens>` with the appropriate details. The <dbricks_org_id> parameter should be the <workspace-id>.<random-number> which can be obtained from the [workspace url](https://docs.microsoft.com/en-us/azure/databricks/workspace/workspace-details#--workspace-instance-names-urls-and-ids). 
 
     ```
     ## Create resource group if necessary
